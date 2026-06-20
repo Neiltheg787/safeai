@@ -106,6 +106,9 @@ export default function Dashboard() {
   
   // New state for camera assignments and available devices
   const [cameraAssignments, setCameraAssignments] = useState<Record<string, string | null>>(() => {
+    if (typeof window === 'undefined') {
+      return {};
+    }
     const saved = localStorage.getItem('cameraAssignments');
     return saved ? JSON.parse(saved) : {};
   });

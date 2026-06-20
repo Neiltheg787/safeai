@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 # Configure CORS with specific settings
 CORS(app, resources={
-    r"/api/*": {
+    r"/*": {
         "origins": ["http://localhost:3000"],  # Allow requests from frontend
         "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type"],
@@ -34,6 +34,7 @@ CORS(app, resources={
 threat_detector = ThreatDetectionSystem()
 
 
+@app.route('/detect', methods=['POST', 'OPTIONS'])
 @app.route('/api/detect', methods=['POST', 'OPTIONS'])
 def detect_threats():
     """Endpoint to process a single frame and detect threats"""
@@ -88,6 +89,7 @@ def detect_threats():
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/health', methods=['GET'])
 @app.route('/api/health', methods=['GET'])
 def health_check():
    """Health check endpoint"""
@@ -109,5 +111,4 @@ if __name__ == '__main__':
            del threat_detector.model
        if torch.cuda.is_available():
            torch.cuda.empty_cache()
-
 

@@ -1,7 +1,9 @@
 // Service for handling frame processing through the backend
 export class ProcessingService {
   private static instance: ProcessingService;
-  private readonly API_BASE_URL = 'http://localhost:8000/api';
+  private readonly API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_BASE_URL ??
+    (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8000/api');
 
   private constructor() {}
 
@@ -52,4 +54,4 @@ export class ProcessingService {
       return false;
     }
   }
-} 
+}
