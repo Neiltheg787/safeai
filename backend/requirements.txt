@@ -1,11 +1,2 @@
 flask
 flask-cors
-transformers
-torch
-einops
-accelerate
-hf-transfer
-matplotlib
-pyvips
-dotenv
-opencv-python
